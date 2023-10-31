@@ -1,120 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewpoint" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8">
   <title>Chatbot</title>
   <style>
-body {
-  font-f<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #007bff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      max-width: 1000px; /* Reduce the width of the body */
+      margin: 0 auto; /* Center the body horizontally */
+    }
 
-  .chat-window {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    margin: 2%;
-  }
+    .chat-window {
+      flex-grow: 50;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin: auto; /* Center chat window horizontally */
+      max-width: 500px; /* Set maximum width for chat window */
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-  .chat-log {
-    flex-grow: 1;
-    overflow-y: scroll;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 2em;
-    box-sizing: border-box;
-    margin-bottom: 2%;
-  }
-
-  .message {
-    margin-bottom: 1em;
-    margin-left: 2%;
-  }
-
-  .message-content {
-    padding: 0.5em 1em;
-    border-radius: 5px;
-  }
-
-  .user-message .message-content {
-    background-color: #aeaaaa2f;
-    color: #0d0c0c;
-    text-align: left;
-  }
-
-  .bot-message .message-content {
-    background-color: #95919171;
-    color: #333;
-    text-align: left;
-  }
-
-  .input-container {
-    display: flex;
-    align-items: center;
-    padding: 1em;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 2%;
-    max-height: 4em; /* Adjust the maximum height */
-  }
-
-  .input-container input[type="text"] {
-    flex: 1;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-  }
-
-  .input-container button {
-    padding: 1em;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    margin-left: 2%;
-    cursor: pointer;
-  }
-
-  .highlight {
-    color: red;
-  }
-
-  @media (max-width: 768px) {
     .chat-log {
-      padding: 1em;
+      flex-grow: 1;
+      overflow-y: scroll;
+      background-color: #e6e6e6;
+      border-radius: 10px;
+      box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+      margin-right: 30px;
+    }
+
+    .message {
+      margin-bottom: 20px;
     }
 
     .message-content {
-      padding: 0.5em;
+      padding: 15px;
+      border-radius: 15px;
+      max-width: 70%;
+      font-size: 30px; /* Increase font size */
+    }
+
+    .user-message .message-content {
+      background-color: #007bff;
+      color: #fff;
+      text-align: left;
+      align-self: flex-start;
+    }
+
+    .bot-message .message-content {
+      background-color: #333;
+      color: #fff;
+      text-align: left;
+      align-self: flex-end;
     }
 
     .input-container {
-      padding: 0.5em;
-      max-height: 3em; /* Adjust the maximum height for mobile */
+      display: flex;
+      justify-content: space-between; /* Center input horizontally */
+      align-items: center; /* Center input vertically */
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .input-container input[type="text"] {
-      padding: 0.5em;
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      font-size: 24px; /* Increase font size */
+      max-width: 100%; /* Make the input box shorter */
     }
 
     .input-container button {
-      padding: 0.5em;
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
     }
-  }
-</style>
 
+    .highlight {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <div class="chat-window">
@@ -149,19 +130,22 @@ body {
       messageDiv.classList.add('message', sender + '-message');
       const messageContent = document.createElement('div');
       messageContent.classList.add('message-content');
+
       messageContent.innerHTML = message;
+
       messageDiv.appendChild(messageContent);
       chatLog.appendChild(messageDiv);
+
       chatLog.scrollTop = chatLog.scrollHeight;
     }
 
     function respondToUser(userMessage) {
       userMessage = userMessage.toLowerCase();
-      
       const responses = {
           'হাল খবর?': 'আমি ভালো আছি, আপনি কেমন আছেন?',
           'hi': 'আমি ভালো আছি, আপনি কেমন আছেন?',
           'বৈষ্ণব পদাবলি': 'বৈষ্ণব পদাবলি বা বৈষ্ণব পদাবলী বৈষ্ণব ধর্মতত্ত্বের রসভাষ্য নামে খ্যাত এক শ্রেণীর ধর্মসঙ্গীত সংগ্রহ,<br>সূচনা ঘটে চর্তুদশ শতকে বিদ্যাপতি ও চণ্ডীদাস-এর সময়ে, তবে ষোড়শ শতকে এই সাহিত্যের বিকাশ হয়।',
+          // Add more predefined responses here.
       };
 
       const response = responses[userMessage] || 'দুঃখিত, আমি বুঝতে পারছি না।';
@@ -180,3 +164,5 @@ body {
   </script>
 </body>
 </html>
+      
+       
